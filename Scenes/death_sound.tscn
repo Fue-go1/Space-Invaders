@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://d3ftg0ot4j21d"]
+
+[ext_resource type="AudioStream" uid="uid://bbsbstbnxyt7y" path="res://Assets/SFX/Enemy_death.mp3" id="1_cyio3"]
+
+[node name="Death_sound" type="AudioStreamPlayer2D" unique_id=875775774]
+stream = ExtResource("1_cyio3")

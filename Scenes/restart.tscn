@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://egd8j6mhykdx"]
+
+[ext_resource type="Script" uid="uid://df713hbn0rtxk" path="res://Scripts/restart.gd" id="1_7g6v7"]
+
+[node name="Restart" type="Button" unique_id=2042745423]
+offset_left = 471.0
+offset_top = 242.0
+offset_right = 682.0
+offset_bottom = 356.0
+theme_override_font_sizes/font_size = 30
+text = "Restart"
+script = ExtResource("1_7g6v7")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

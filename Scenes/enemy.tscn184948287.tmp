@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://bmnsshbidjbrv"]
+
+[ext_resource type="Script" uid="uid://8s5mf7t81ddu" path="res://Scripts/enemy.gd" id="1_1f0kj"]
+[ext_resource type="PackedScene" uid="uid://d2ljnhjam26bh" path="res://Scenes/enemy_projectiles.tscn" id="2_287tu"]
+[ext_resource type="Texture2D" uid="uid://43amorwh4brn" path="res://icon.svg" id="2_afpow"]
+[ext_resource type="PackedScene" uid="uid://d3ftg0ot4j21d" path="res://Scenes/death_sound.tscn" id="3_afpow"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1f0kj"]
+radius = 62.289646
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_287tu"]
+
+[node name="Enemy" type="CharacterBody2D" unique_id=180347210]
+script = ExtResource("1_1f0kj")
+bullet = ExtResource("2_287tu")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1162109934]
+position = Vector2(94, 126)
+texture = ExtResource("2_afpow")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1495530819]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1760483332]
+unique_name_in_owner = true
+position = Vector2(94, 125)
+shape = SubResource("CircleShape2D_1f0kj")
+
+[node name="Death_sound" parent="." unique_id=875775774 instance=ExtResource("3_afpow")]
+unique_name_in_owner = true
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=1528046043]
+unique_name_in_owner = true
+position = Vector2(96, 188)
+target_position = Vector2(6, 656)
+
+[node name="Cooldown" type="Timer" parent="." unique_id=2133751874]
+wait_time = 4.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1776574764]
+position = Vector2(94, 128)
+shape = SubResource("CircleShape2D_287tu")
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]

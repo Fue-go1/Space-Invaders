@@ -1,0 +1,423 @@
+[gd_scene format=3 uid="uid://bgi21s1hlbsy8"]
+
+[ext_resource type="Script" uid="uid://bb75j5qrswi2k" path="res://Scripts/main.gd" id="1_21xkr"]
+[ext_resource type="PackedScene" uid="uid://cfylihfkfs3gp" path="res://Scenes/player.tscn" id="1_jjgbg"]
+[ext_resource type="Script" uid="uid://fy7r4jxtsqeb" path="res://Scripts/1_st_row.gd" id="2_jjvhh"]
+[ext_resource type="PackedScene" uid="uid://boyts4wptgndq" path="res://Scenes/cover.tscn" id="3_8gbba"]
+[ext_resource type="PackedScene" uid="uid://bmnsshbidjbrv" path="res://Scenes/enemy.tscn" id="3_jjvhh"]
+[ext_resource type="Script" uid="uid://dexh8cgr4i74r" path="res://Scripts/2_nd_row.gd" id="4_kry3j"]
+[ext_resource type="PackedScene" uid="uid://egd8j6mhykdx" path="res://Scenes/restart.tscn" id="7_6bp64"]
+[ext_resource type="AudioStream" uid="uid://bwh5rfragn4bs" path="res://Assets/Music/SpaceInvadersTheme.mp3" id="8_344ge"]
+
+[sub_resource type="GDScript" id="GDScript_8gbba"]
+script/source = "extends CharacterBody2D
+
+@export var bullet: PackedScene
+@export var max_shot: int
+@onready var shoot_point: Marker2D = %Marker2D
+@onready var cooldown: Timer = $Cooldown
+@onready var enemy_sight: RayCast2D = $RayCast2D
+#@onready var sprite_2d: Sprite2D = $Sprite2D
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	move_and_slide()
+	if $RayCast2D.is_colliding() and max_shot == 0:
+		cooldown.start()
+		print(\"Detected\")
+		var bulletInstance = bullet.instantiate()
+		get_parent().add_child(bulletInstance)
+		bulletInstance.global_position = shoot_point.global_position
+		max_shot += 1
+	else:
+		pass
+	
+
+func _on_hitbox_area_entered(_area: Area2D) -> void:
+	die()
+	pass # Replace with function body.
+
+func die():
+	var death_sound = preload(\"res://Scenes/death_sound.tscn\").instantiate()
+	death_sound.global_position = global_position
+	get_tree().current_scene.add_child(death_sound)
+	death_sound.play()
+	queue_free()
+	pass
+
+func _on_cooldown_timeout() -> void:
+	print(\"Timer Up\")
+	max_shot = 0
+	pass # Replace with function body.
+
+#1ST ENEMY
+func _on_friendly_cone_body_entered(body: CharacterBody2D) -> void:
+	enemy_sight.enabled = false
+	print(\"Friendly\")
+	pass # Replace with function body.
+
+func _on_friendly_cone_body_exited(body: CharacterBody2D) -> void:
+	enemy_sight.enabled = true
+	print(\"Target Locked\")
+	pass # Replace with function body.
+
+func _on_friendly_cone_2_body_entered(body: CharacterBody2D) -> void:
+	enemy_sight.enabled = false
+	print(\"Friendly\")
+	pass # Replace with function body.
+
+
+func _on_friendly_cone_2_body_exited(body: CharacterBody2D) -> void:
+	enemy_sight.enabled = true
+	print(\"Target Locked\")
+	pass # Replace with function body.
+
+
+func _on_friendly_cone_3_body_entered(body: CharacterBody2D) -> void:
+	enemy_sight.enabled = false
+	print(\"Friendly\")
+	pass # Replace with function body.
+
+
+func _on_friendly_cone_3_body_exited(body: CharacterBody2D) -> void:
+	enemy_sight.enabled = true
+	print(\"Target Locked\")
+	pass # Replace with function body.
+
+
+func _on_friendly_cone_4_body_entered(body: CharacterBody2D) -> void:
+	enemy_sight.enabled = false
+	print(\"Friendly\")
+	pass # Replace with function body.
+
+
+func _on_friendly_cone_4_body_exited(body: CharacterBody2D) -> void:
+	enemy_sight.enabled = true
+	print(\"Target Locked\")
+	pass # Replace with function body.
+
+
+func _on_enraged_1_area_entered(area: Area2D) -> void:
+	print(\"RAGEEEEEE\")
+	pass # Replace with function body.
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_344ge"]
+height = 44.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_21xkr"]
+radius = 31.0
+height = 98.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6bp64"]
+radius = 64.0
+height = 200.0
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_kry3j"]
+b = Vector2(0, 646)
+
+[sub_resource type="Animation" id="Animation_kry3j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../1st_Row:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 19)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../2nd_Row:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-245, 73)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%AnimationPlayer:speed_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.8]
+}
+
+[sub_resource type="Animation" id="Animation_21xkr"]
+resource_name = "enemy_moveLeft"
+length = 4.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../1st_Row:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3, 4.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(127, 0), Vector2(-125, 19), Vector2(127, 19), Vector2(-125, 19)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../2nd_Row:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2, 4.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-245, 0), Vector2(61, 0), Vector2(-245, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6bp64"]
+resource_name = "new_animation"
+length = 4.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../1st_Row:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3, 4.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(127, 19), Vector2(-125, 19), Vector2(127, 19), Vector2(-125, 19)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%AnimationPlayer:speed_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.8]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_344ge"]
+_data = {
+&"RESET": SubResource("Animation_kry3j"),
+&"enemy_move": SubResource("Animation_21xkr"),
+&"new_animation": SubResource("Animation_6bp64")
+}
+
+[node name="main" type="Node2D" unique_id=594243543]
+script = ExtResource("1_21xkr")
+
+[node name="Player" parent="." unique_id=2134793376 instance=ExtResource("1_jjgbg")]
+unique_name_in_owner = true
+position = Vector2(500, 587)
+scale = Vector2(2, 2)
+
+[node name="Timers" type="Node2D" parent="." unique_id=143317393]
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1472894401]
+z_index = -1
+offset_right = 1151.0
+offset_bottom = 647.0
+color = Color(0.011087579, 0.011087578, 0.01108758, 1)
+
+[node name="1st_Row" type="Node2D" parent="." unique_id=1059282294]
+position = Vector2(1, 19)
+script = ExtResource("2_jjvhh")
+speed = 10
+
+[node name="Enemy" parent="1st_Row" unique_id=180347210 instance=ExtResource("3_jjvhh")]
+unique_name_in_owner = true
+position = Vector2(164, 206)
+scale = Vector2(0.5, 0.5)
+script = SubResource("GDScript_8gbba")
+
+[node name="Enraged_1" type="Area2D" parent="1st_Row/Enemy" unique_id=841430622]
+collision_layer = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="1st_Row/Enemy/Enraged_1" unique_id=650527194]
+position = Vector2(6.556509e-07, -29.999985)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_344ge")
+
+[node name="Enemy2" parent="1st_Row" unique_id=2112857109 instance=ExtResource("3_jjvhh")]
+unique_name_in_owner = true
+position = Vector2(451, 206)
+scale = Vector2(0.5, 0.5)
+script = SubResource("GDScript_8gbba")
+
+[node name="Enraged_2" type="Area2D" parent="1st_Row/Enemy2" unique_id=1888027233]
+collision_layer = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="1st_Row/Enemy2/Enraged_2" unique_id=985423262]
+position = Vector2(6.556509e-07, -29.999985)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_344ge")
+
+[node name="Enemy3" parent="1st_Row" unique_id=1530057044 instance=ExtResource("3_jjvhh")]
+unique_name_in_owner = true
+position = Vector2(727, 206)
+scale = Vector2(0.5, 0.5)
+script = SubResource("GDScript_8gbba")
+
+[node name="Enraged_3" type="Area2D" parent="1st_Row/Enemy3" unique_id=506925902]
+collision_layer = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="1st_Row/Enemy3/Enraged_3" unique_id=162952362]
+position = Vector2(6.556509e-07, -29.999985)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_344ge")
+
+[node name="Enemy4" parent="1st_Row" unique_id=1888930164 instance=ExtResource("3_jjvhh")]
+unique_name_in_owner = true
+position = Vector2(992, 206)
+scale = Vector2(0.5, 0.5)
+script = SubResource("GDScript_8gbba")
+
+[node name="Enraged_4" type="Area2D" parent="1st_Row/Enemy4" unique_id=276393980]
+collision_layer = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="1st_Row/Enemy4/Enraged_4" unique_id=1671380018]
+position = Vector2(6.556509e-07, -29.999985)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_344ge")
+
+[node name="2nd_Row" type="Node2D" parent="." unique_id=843722149]
+position = Vector2(-245, 73)
+script = ExtResource("4_kry3j")
+speed = 10
+
+[node name="Enemy5" parent="2nd_Row" unique_id=417813827 instance=ExtResource("3_jjvhh")]
+unique_name_in_owner = true
+position = Vector2(279, 73)
+script = SubResource("GDScript_8gbba")
+
+[node name="Friendly_Cone" type="Area2D" parent="2nd_Row/Enemy5" unique_id=186333317]
+position = Vector2(-558, -146)
+scale = Vector2(2, 2)
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2nd_Row/Enemy5/Friendly_Cone" unique_id=457206461]
+position = Vector2(279, 114.5)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CapsuleShape2D_21xkr")
+
+[node name="Enemy6" parent="2nd_Row" unique_id=1828929500 instance=ExtResource("3_jjvhh")]
+position = Vector2(592, 73)
+script = SubResource("GDScript_8gbba")
+
+[node name="Friendly_Cone2" type="Area2D" parent="2nd_Row/Enemy6" unique_id=908338086]
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="2nd_Row/Enemy6/Friendly_Cone2" unique_id=281245861]
+position = Vector2(0, 83)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CapsuleShape2D_6bp64")
+
+[node name="Enemy7" parent="2nd_Row" unique_id=1691487204 instance=ExtResource("3_jjvhh")]
+position = Vector2(843, 73)
+script = SubResource("GDScript_8gbba")
+
+[node name="Friendly_Cone3" type="Area2D" parent="2nd_Row/Enemy7" unique_id=756802223]
+position = Vector2(-2, 0)
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="2nd_Row/Enemy7/Friendly_Cone3" unique_id=1979122623]
+position = Vector2(0, 83)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CapsuleShape2D_6bp64")
+
+[node name="Enemy8" parent="2nd_Row" unique_id=593877438 instance=ExtResource("3_jjvhh")]
+position = Vector2(1056, 73)
+script = SubResource("GDScript_8gbba")
+
+[node name="Friendly_Cone4" type="Area2D" parent="2nd_Row/Enemy8" unique_id=2089299091]
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="2nd_Row/Enemy8/Friendly_Cone4" unique_id=313321769]
+position = Vector2(0, 83)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CapsuleShape2D_6bp64")
+
+[node name="Covers" type="Node2D" parent="." unique_id=394097127]
+
+[node name="Cover" parent="Covers" unique_id=1444457253 instance=ExtResource("3_8gbba")]
+unique_name_in_owner = true
+position = Vector2(347, 466)
+scale = Vector2(2.94, 2.94)
+
+[node name="Cover2" parent="Covers" unique_id=241584508 instance=ExtResource("3_8gbba")]
+unique_name_in_owner = true
+position = Vector2(597, 466)
+scale = Vector2(2.94, 2.94)
+
+[node name="Cover3" parent="Covers" unique_id=1293873634 instance=ExtResource("3_8gbba")]
+unique_name_in_owner = true
+position = Vector2(848, 466)
+scale = Vector2(2.94, 2.94)
+
+[node name="Walls" type="Node2D" parent="." unique_id=402674299]
+
+[node name="Sides" type="StaticBody2D" parent="Walls" unique_id=938145400]
+
+[node name="Left" type="CollisionShape2D" parent="Walls/Sides" unique_id=204660731]
+shape = SubResource("SegmentShape2D_kry3j")
+
+[node name="Right" type="CollisionShape2D" parent="Walls/Sides" unique_id=863415504]
+position = Vector2(1152, 0)
+shape = SubResource("SegmentShape2D_kry3j")
+
+[node name="Enemy_Animations" type="Node2D" parent="Walls" unique_id=877179967]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Walls/Enemy_Animations" unique_id=1700159074]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_344ge")
+autoplay = &"enemy_move"
+speed_scale = 0.8
+
+[node name="Restart" parent="." unique_id=2042745423 instance=ExtResource("7_6bp64")]
+unique_name_in_owner = true
+offset_left = 914.0
+offset_top = 515.0
+offset_right = 1125.0
+offset_bottom = 629.0
+
+[node name="Theme_Song" type="AudioStreamPlayer2D" parent="." unique_id=1864264408]
+stream = ExtResource("8_344ge")
+autoplay = true
+
+[connection signal="area_entered" from="1st_Row/Enemy/Enraged_1" to="1st_Row/Enemy" method="_on_enraged_1_area_entered"]
+[connection signal="area_entered" from="2nd_Row/Enemy5/Friendly_Cone" to="2nd_Row/Enemy5" method="_on_friendly_cone_area_entered"]
+[connection signal="body_entered" from="2nd_Row/Enemy5/Friendly_Cone" to="2nd_Row/Enemy5" method="_on_friendly_cone_body_entered"]
+[connection signal="body_exited" from="2nd_Row/Enemy5/Friendly_Cone" to="2nd_Row/Enemy5" method="_on_friendly_cone_body_exited"]
+[connection signal="body_entered" from="2nd_Row/Enemy6/Friendly_Cone2" to="2nd_Row/Enemy6" method="_on_friendly_cone_2_body_entered"]
+[connection signal="body_exited" from="2nd_Row/Enemy6/Friendly_Cone2" to="2nd_Row/Enemy6" method="_on_friendly_cone_2_body_exited"]
+[connection signal="body_entered" from="2nd_Row/Enemy7/Friendly_Cone3" to="2nd_Row/Enemy7" method="_on_friendly_cone_3_body_entered"]
+[connection signal="body_exited" from="2nd_Row/Enemy7/Friendly_Cone3" to="2nd_Row/Enemy7" method="_on_friendly_cone_3_body_exited"]
+[connection signal="body_entered" from="2nd_Row/Enemy8/Friendly_Cone4" to="2nd_Row/Enemy8" method="_on_friendly_cone_4_body_entered"]
+[connection signal="body_exited" from="2nd_Row/Enemy8/Friendly_Cone4" to="2nd_Row/Enemy8" method="_on_friendly_cone_4_body_exited"]
+[connection signal="area_entered" from="Covers/Cover" to="Covers/Cover" method="_on_area_entered"]
+[connection signal="area_entered" from="Covers/Cover2" to="Covers/Cover2" method="_on_area_entered"]
+[connection signal="area_entered" from="Covers/Cover3" to="Covers/Cover3" method="_on_area_entered"]

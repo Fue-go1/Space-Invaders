@@ -1,0 +1,56 @@
+extends Area2D
+class_name Cover
+var rotate_timer: int
+var hits_taken: int
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	rotate_timer = randi_range(1, 4)
+	var move_tween = create_tween()
+	move_tween.set_loops()
+	move_tween.tween_property(self, "rotation_degrees", 360, rotate_timer).as_relative()
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+func destroyed():
+	$".".queue_free()
+	pass
+
+func _on_emit_particles_up_area_entered(area: Area2D) -> void:
+	%Bullet_Hit_up.emitting = true
+	hits_taken += 1
+	$AnimationPlayer.play("impact")
+	if hits_taken == 3:
+		destroyed()
+	pass # Replace with function body.
+
+
+func _on_emit_particles_left_area_entered(area: Area2D) -> void:
+	%Bullet_Hit_left.emitting = true
+	hits_taken += 1
+	$AnimationPlayer.play("impact")
+	if hits_taken == 3:
+		destroyed()
+	pass # Replace with function body.
+
+
+func _on_emit_particles_right_area_entered(area: Area2D) -> void:
+	%Bullet_Hit_right.emitting = true
+	hits_taken += 1
+	$AnimationPlayer.play("impact")
+	if hits_taken == 3:
+		destroyed()
+	pass # Replace with function body.
+
+
+func _on_emit_particles_bottom_area_entered(area: Area2D) -> void:
+	%Bullet_Hit_bottom.emitting = true
+	hits_taken += 1
+	$AnimationPlayer.play("impact")
+	if hits_taken == 3:
+		destroyed()
+	pass # Replace with function body.

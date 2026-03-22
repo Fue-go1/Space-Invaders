@@ -1,0 +1,192 @@
+[gd_scene format=3 uid="uid://boyts4wptgndq"]
+
+[ext_resource type="Script" uid="uid://ergac6fhd5e1" path="res://cover.gd" id="1_xsm4k"]
+[ext_resource type="Texture2D" uid="uid://ch3ofepnnu86x" path="res://Assets/Sprites/Asteroid/AsteroidHit.png" id="2_tu51b"]
+[ext_resource type="Texture2D" uid="uid://byjdg0edup8" path="res://Assets/Sprites/Asteroid/Asteroid.png" id="2_xsm4k"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tu51b"]
+radius = 15.0
+
+[sub_resource type="Animation" id="Animation_2pw40"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_xsm4k")]
+}
+
+[sub_resource type="Animation" id="Animation_bckme"]
+resource_name = "impact"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(0, -4), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.19842587),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_xsm4k"), ExtResource("2_tu51b"), ExtResource("2_xsm4k")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6wsw5"]
+_data = {
+&"RESET": SubResource("Animation_2pw40"),
+&"impact": SubResource("Animation_bckme")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tu51b"]
+radius = 3.0
+height = 34.0
+
+[sub_resource type="Curve" id="Curve_tu51b"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Cover" type="Area2D" unique_id=920039166]
+script = ExtResource("1_xsm4k")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1299392230]
+scale = Vector2(0.703125, 0.515625)
+texture = ExtResource("2_xsm4k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1516954149]
+position = Vector2(-2, -1)
+shape = SubResource("CircleShape2D_tu51b")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=593864861]
+libraries/ = SubResource("AnimationLibrary_6wsw5")
+
+[node name="Emit_Particles_up" type="Area2D" parent="." unique_id=275468954]
+position = Vector2(0, -6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Emit_Particles_up" unique_id=2035230589]
+position = Vector2(-2, -14)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_tu51b")
+
+[node name="Bullet_Hit_up" type="CPUParticles2D" parent="Emit_Particles_up" unique_id=1337652675]
+unique_name_in_owner = true
+position = Vector2(0, -16)
+emitting = false
+amount = 6
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 100)
+initial_velocity_min = 25.0
+initial_velocity_max = 50.0
+scale_amount_min = 3.0
+scale_amount_max = 6.0
+scale_amount_curve = SubResource("Curve_tu51b")
+color = Color(0.5176471, 0.49411765, 0.5294118, 1)
+
+[node name="Emit_Particles_left" type="Area2D" parent="." unique_id=1914764881]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Emit_Particles_left" unique_id=2081293567]
+position = Vector2(-22, -1)
+shape = SubResource("CapsuleShape2D_tu51b")
+
+[node name="Bullet_Hit_left" type="CPUParticles2D" parent="Emit_Particles_left" unique_id=1858517793]
+unique_name_in_owner = true
+position = Vector2(-20, 0)
+emitting = false
+amount = 6
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 100)
+initial_velocity_min = 25.0
+initial_velocity_max = 50.0
+scale_amount_min = 3.0
+scale_amount_max = 6.0
+scale_amount_curve = SubResource("Curve_tu51b")
+color = Color(0.5176471, 0.49411765, 0.5294118, 1)
+
+[node name="Emit_Particles_right" type="Area2D" parent="." unique_id=698417818]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Emit_Particles_right" unique_id=1218022571]
+position = Vector2(19, -1)
+shape = SubResource("CapsuleShape2D_tu51b")
+
+[node name="Bullet_Hit_right" type="CPUParticles2D" parent="Emit_Particles_right" unique_id=805938922]
+unique_name_in_owner = true
+position = Vector2(17, -1)
+emitting = false
+amount = 6
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 100)
+initial_velocity_min = 25.0
+initial_velocity_max = 50.0
+scale_amount_min = 3.0
+scale_amount_max = 6.0
+scale_amount_curve = SubResource("Curve_tu51b")
+color = Color(0.5176471, 0.49411765, 0.5294118, 1)
+
+[node name="Emit_Particles_bottom" type="Area2D" parent="." unique_id=725187912]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Emit_Particles_bottom" unique_id=1918537403]
+position = Vector2(-2, 19)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_tu51b")
+
+[node name="Bullet_Hit_bottom" type="CPUParticles2D" parent="Emit_Particles_bottom" unique_id=1339166061]
+unique_name_in_owner = true
+position = Vector2(0, 15)
+emitting = false
+amount = 6
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 100)
+initial_velocity_min = 25.0
+initial_velocity_max = 50.0
+scale_amount_min = 3.0
+scale_amount_max = 6.0
+scale_amount_curve = SubResource("Curve_tu51b")
+color = Color(0.5176471, 0.49411765, 0.5294118, 1)
+
+[connection signal="area_entered" from="Emit_Particles_up" to="." method="_on_emit_particles_up_area_entered"]
+[connection signal="area_entered" from="Emit_Particles_left" to="." method="_on_emit_particles_left_area_entered"]
+[connection signal="area_entered" from="Emit_Particles_right" to="." method="_on_emit_particles_right_area_entered"]
+[connection signal="area_entered" from="Emit_Particles_bottom" to="." method="_on_emit_particles_bottom_area_entered"]

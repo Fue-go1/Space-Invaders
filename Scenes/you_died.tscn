@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bbnia1b2bwdmr"]
+
+[ext_resource type="AudioStream" uid="uid://2aa0opg7vjni" path="res://Assets/SFX/Mission_Failed.mp3" id="1_rmgum"]
+
+[node name="You_Died" type="AudioStreamPlayer2D" unique_id=299986453]
+stream = ExtResource("1_rmgum")
