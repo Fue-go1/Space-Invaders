@@ -18,7 +18,6 @@ script/source = "extends CharacterBody2D
 @onready var enemy_sight: RayCast2D = $RayCast2D
 @onready var destroyed: AnimationPlayer = $AnimationPlayer
 @onready var despawn_timer: Timer = $Despawn_timer
-@onready var pause: AnimationPlayer
 var active: bool = true
 
 # Called when the node enters the scene tree for the first time.
@@ -50,6 +49,7 @@ func die():
 	get_tree().current_scene.add_child(death_sound)
 	death_sound.play()
 	if active == false:
+		enemy_sight.enabled = false
 		cooldown.paused = true
 		destroyed.play(\"exploding\")
 		despawn_timer.start()
