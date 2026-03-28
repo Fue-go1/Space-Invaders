@@ -11,6 +11,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	$"../Blast_zone/CollisionShape2D".disabled = true
 	var direction = Input.get_axis("left", "right")
 	move_and_slide()
 	position.x += direction * speed * delta
@@ -38,10 +39,10 @@ func _process(delta: float) -> void:
 		max_per_shot += 1
 		%Cooldown.start()
 		
-	if Autoload.enemy_death_count == 8:
+	if Autoload.enemy_death_count == 1:
+		$"../Blast_zone/CollisionShape2D".disabled = false
 		var mission_complete = create_tween()
 		mission_complete.tween_property(%Player, "global_position", Vector2(530,587), 1)
-		#mission_complete.chain().tween_property(%Player, "global_position", global_position + Vector2.UP * speed, 1)
 	pass
 
 func _on_cooldown_timeout() -> void:
@@ -58,3 +59,8 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	queue_free()
 	%Restart.show()
 	pass # Replace with function body.
+
+func _on_blast_zone_body_entered(body: CharacterBody2D) -> void:
+	print("BLAST-OFF")
+	var in_position = create_tween()
+	in_position.tween_property(%Player, "global_position", global_position + Vector2.UP * speed, 1)

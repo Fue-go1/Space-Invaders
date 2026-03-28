@@ -138,6 +138,7 @@ _bundled = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_344ge"]
+radius = 20.0
 height = 44.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_21xkr"]
@@ -282,6 +283,9 @@ _data = {
 &"pause": SubResource("Animation_344ge")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_6bp64"]
+radius = 9.848858
+
 [node name="main" type="Node2D" unique_id=594243543]
 script = ExtResource("1_21xkr")
 
@@ -289,6 +293,7 @@ script = ExtResource("1_21xkr")
 unique_name_in_owner = true
 position = Vector2(630, 587)
 scale = Vector2(2, 2)
+collision_mask = 129
 
 [node name="Timers" type="Node2D" parent="." unique_id=143317393]
 
@@ -485,6 +490,13 @@ position = Vector2(-968, -216)
 [node name="Mission_Complete_Marker" type="Marker2D" parent="." unique_id=1140440958]
 position = Vector2(630, 587)
 
+[node name="Blast_zone" type="Area2D" parent="." unique_id=927877641]
+collision_layer = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blast_zone" unique_id=1686158966]
+position = Vector2(530, 587)
+shape = SubResource("CircleShape2D_6bp64")
+
 [connection signal="victory" from="1st_Row/Enemy" to="1st_Row/Enemy" method="_on_victory"]
 [connection signal="area_entered" from="1st_Row/Enemy/Enraged_1" to="1st_Row/Enemy" method="_on_enraged_1_area_entered"]
 [connection signal="area_entered" from="2nd_Row/Enemy5/Friendly_Cone" to="2nd_Row/Enemy5" method="_on_friendly_cone_area_entered"]
@@ -498,3 +510,4 @@ position = Vector2(630, 587)
 [connection signal="body_exited" from="2nd_Row/Enemy8/Friendly_Cone4" to="2nd_Row/Enemy8" method="_on_friendly_cone_4_body_exited"]
 [connection signal="area_entered" from="Covers/Cover2" to="Covers/Cover2" method="_on_area_entered"]
 [connection signal="area_entered" from="Covers/Cover3" to="Covers/Cover3" method="_on_area_entered"]
+[connection signal="body_entered" from="Blast_zone" to="Player" method="_on_blast_zone_body_entered"]
