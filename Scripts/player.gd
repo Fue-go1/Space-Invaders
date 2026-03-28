@@ -37,6 +37,11 @@ func _process(delta: float) -> void:
 		rocket.global_position = %Marker2D.global_position
 		max_per_shot += 1
 		%Cooldown.start()
+		
+	if Autoload.enemy_death_count == 8:
+		var mission_complete = create_tween()
+		mission_complete.tween_property(%Player, "global_position", Vector2(530,587), 1)
+		#mission_complete.chain().tween_property(%Player, "global_position", global_position + Vector2.UP * speed, 1)
 	pass
 
 func _on_cooldown_timeout() -> void:
@@ -53,7 +58,3 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	queue_free()
 	%Restart.show()
 	pass # Replace with function body.
-
-
-#Back And Forth movement using AnimationPlayers if I'm struggling
-#

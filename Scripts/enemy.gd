@@ -45,4 +45,5 @@ func _on_cooldown_timeout() -> void:
 	pass # Replace with function body.
 
 func _on_despawn_timer_timeout() -> void:
+	$".".queue_free()
 	pass # Replace with function body.

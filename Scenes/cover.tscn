@@ -154,10 +154,24 @@ tracks/4/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_mission_complete"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_tu51b"]
 resource_name = "cover_destroyed"
-length = 0.7
+length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -217,6 +231,20 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_mission_complete"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_bckme"]
@@ -384,11 +412,6 @@ one_shot = true
 unique_name_in_owner = true
 wait_time = 0.4
 
-[node name="Victory_Despawn" type="Timer" parent="Timers" unique_id=1442050073]
-unique_name_in_owner = true
-wait_time = 0.7
-one_shot = true
-
 [node name="Despawning_Particles" type="CPUParticles2D" parent="." unique_id=746253966]
 position = Vector2(-2, -1)
 emitting = false
@@ -412,4 +435,3 @@ color = Color(0.5176471, 0.49411765, 0.5294118, 1)
 [connection signal="area_entered" from="Emit_Particles_bottom" to="." method="_on_emit_particles_bottom_area_entered"]
 [connection signal="timeout" from="Timers/Resume_Rotate_Timer" to="." method="_on_resume_rotate_timer_timeout"]
 [connection signal="timeout" from="Timers/Despawn_Timer" to="." method="_on_despawn_timer_timeout"]
-[connection signal="timeout" from="Timers/Victory_Despawn" to="." method="_on_victory_despawn_timeout"]

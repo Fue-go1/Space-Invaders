@@ -17,6 +17,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if Autoload.enemy_death_count == 8:
+		$AnimationPlayer.play("Victory_screen")
 	pass
 
 func _on_emit_particles_up_area_entered(area: Area2D) -> void:
@@ -96,19 +98,6 @@ func _on_despawn_timer_timeout() -> void:
 	$".".queue_free()
 	pass # Replace with function body.
 
-func _on_victory_despawn_timeout() -> void:
-	$AnimationPlayer.stop()
+func _mission_complete():
 	$".".queue_free()
-	pass # Replace with function body.
-
-
-func _on_enemy_victory() -> void:
-	%Victory_Despawn.start()
-	$AnimationPlayer.play("Victory_screen")
-	pass # Replace with function body.
-
-
-func _on_enemy_2_victory() -> void:
-	%Victory_Despawn.start()
-	$AnimationPlayer.play("Victory_screen")
-	pass # Replace with function body.
+	pass
