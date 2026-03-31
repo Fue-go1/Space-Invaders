@@ -39,11 +39,11 @@ func _process(delta: float) -> void:
 		max_per_shot += 1
 		%Cooldown.start()
 		
-	if Autoload.enemy_death_count == 8:
+	if Autoload.enemy_death_count == 1:
+		%Lift_Off.play("mission_complete")
 		var mission_complete = create_tween()
 		mission_complete.tween_property(%Player, "global_position", Vector2(530,587), 1)
-		$"../Blast_zone/CollisionShape2D".disabled = false
-		_on_blast_zone_body_entered()
+		#_on_blast_zone_body_entered()
 	pass
 
 func _on_cooldown_timeout() -> void:
@@ -61,7 +61,9 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	%Restart.show()
 	pass # Replace with function body.
 
-func _on_blast_zone_body_entered():
-	print("BLAST-OFF")
-	var in_position = create_tween()
-	in_position.tween_property(%Player, "global_position", global_position + Vector2.UP * speed, 1)
+
+func _on_blast_zone_body_entered(body: Node2D) -> void:
+	$"../Blast_zone/CollisionShape2D".disabled = false
+	%Lift_Off.play("lift")
+	print("ENETERED")
+	pass # Replace with function body.
