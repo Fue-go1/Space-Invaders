@@ -39,9 +39,10 @@ func _process(delta: float) -> void:
 		max_per_shot += 1
 		%Cooldown.start()
 		
-	if Autoload.enemy_death_count == 1:
+	if Autoload.enemy_death_count == 8:
 		%Lift_Off.play("mission_complete")
 		var mission_complete = create_tween()
+		$"../Blast_zone/CollisionShape2D".disabled = false
 		mission_complete.tween_property(%Player, "global_position", Vector2(530,587), 1)
 		#_on_blast_zone_body_entered()
 	pass
