@@ -487,6 +487,7 @@ libraries/ = SubResource("AnimationLibrary_d1ilt")
 
 [node name="Restart" parent="." unique_id=2042745423 instance=ExtResource("7_6bp64")]
 unique_name_in_owner = true
+visible = false
 offset_left = 914.0
 offset_top = 515.0
 offset_right = 1125.0
@@ -510,6 +511,7 @@ position = Vector2(530, 587)
 
 [node name="Victory_Label" type="Label" parent="Victory" unique_id=1141063826]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = 457.0
 offset_top = 206.0
