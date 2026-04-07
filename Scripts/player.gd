@@ -43,11 +43,9 @@ func _process(delta: float) -> void:
 		%Lift_off.start()
 		var mission_complete = create_tween()
 		mission_complete.tween_property(%Player, "global_position", Vector2(530,587), 1)
-		print("Timer Started")
-		await %Lift_off.timeout
 		print("LIFTOFFFFF")
-		
-		#_on_blast_zone_body_entered()
+		%Return_to_normal_speed.start()
+		%Slow_down.play("slowdown")
 	pass
 
 func _on_cooldown_timeout() -> void:
@@ -64,6 +62,16 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	%Restart.show()
 	pass # Replace with function body.
 
-
-
+func _slowdown():
+	Engine.time_scale = .5
+	var finished_sound = preload("res://Scenes/last_hit.tscn").instantiate()
+	finished_sound.global_position = global_position
+	get_tree().current_scene.add_child(finished_sound)
+	finished_sound.play()
+	pass
 #Find out how to use await to trigger an animation using the Timer Nodes
+
+func _on_return_to_normal_speed_timeout() -> void:
+	Engine.time_scale = 1
+	#%Slow_down.queue_free()
+	pass # Replace with function body.

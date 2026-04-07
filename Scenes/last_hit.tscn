@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b3cwwdk3iyiqh"]
+
+[ext_resource type="AudioStream" uid="uid://cgr23h6dvyppt" path="res://Assets/Music/LastHit.mp3" id="1_pfjj8"]
+
+[node name="LastHit" type="AudioStreamPlayer2D" unique_id=857145450]
+stream = ExtResource("1_pfjj8")
