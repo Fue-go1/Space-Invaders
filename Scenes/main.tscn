@@ -505,18 +505,17 @@ position = Vector2(-968, -216)
 [node name="Sprite2D" type="Sprite2D" parent="Rocks" unique_id=380666574]
 
 [node name="Mission_Complete_Marker" type="Marker2D" parent="." unique_id=1140440958]
-position = Vector2(530, 587)
+position = Vector2(576, 587)
 
 [node name="Victory" parent="." unique_id=525379648 instance=ExtResource("8_344ge")]
 
 [node name="Victory_Label" type="Label" parent="Victory" unique_id=1141063826]
 unique_name_in_owner = true
-visible = false
 layout_mode = 0
-offset_left = 457.0
-offset_top = 206.0
-offset_right = 681.0
-offset_bottom = 306.0
+offset_left = 468.0
+offset_top = 184.0
+offset_right = 692.0
+offset_bottom = 284.0
 theme_override_fonts/font = ExtResource("9_ynf5e")
 theme_override_font_sizes/font_size = 32
 text = "VICTORY"

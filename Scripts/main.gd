@@ -5,6 +5,7 @@ extends Node2D
 func _ready() -> void:
 	%Restart.hide()
 	%Victory_Label.hide()
+	Engine.time_scale = 1
 	pass # Replace with function body.
 
 

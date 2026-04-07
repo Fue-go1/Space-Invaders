@@ -3,6 +3,7 @@ extends CharacterBody2D
 @export var projectiles: PackedScene
 var max_per_shot: int
 var game_over: PackedScene = preload("res://Scenes/restart.tscn")
+var mission_triggered: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -38,14 +39,19 @@ func _process(delta: float) -> void:
 		max_per_shot += 1
 		%Cooldown.start()
 		
-	if Autoload.enemy_death_count == 8:
+	if Autoload.enemy_death_count == 8 and not mission_triggered:
+		mission_triggered = true
+		$Hurtbox/CollisionShape2D.disabled = true
+		$CollisionShape2D.disabled = true
 		%Victory_Label.show()
 		%Lift_off.start()
 		var mission_complete = create_tween()
-		mission_complete.tween_property(%Player, "global_position", Vector2(530,587), 1)
+		mission_complete.tween_property(%Player, "global_position", Vector2(576,587), 1)
 		print("LIFTOFFFFF")
 		%Return_to_normal_speed.start()
 		%Slow_down.play("slowdown")
+		await get_tree().create_timer(1.0).timeout
+		%Slow_down.play("normal")
 	pass
 
 func _on_cooldown_timeout() -> void:
@@ -73,5 +79,4 @@ func _slowdown():
 
 func _on_return_to_normal_speed_timeout() -> void:
 	Engine.time_scale = 1
-	#%Slow_down.queue_free()
 	pass # Replace with function body.
