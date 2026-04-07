@@ -50,7 +50,7 @@ func _process(delta: float) -> void:
 		print("LIFTOFFFFF")
 		%Return_to_normal_speed.start()
 		%Slow_down.play("slowdown")
-		await get_tree().create_timer(1.0).timeout
+		await get_tree().create_timer(0.7).timeout
 		%Slow_down.play("normal")
 	pass
 

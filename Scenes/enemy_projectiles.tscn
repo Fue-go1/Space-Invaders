@@ -21,7 +21,9 @@ texture = ExtResource("2_8ho8k")
 shape = SubResource("CircleShape2D_x6k1h")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1116649997]
+emitting = false
 lifetime = 0.5
+one_shot = true
 gravity = Vector2(0, -980)
 scale_amount_min = 2.0
 scale_amount_max = 4.0

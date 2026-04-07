@@ -493,17 +493,6 @@ offset_top = 515.0
 offset_right = 1125.0
 offset_bottom = 629.0
 
-[node name="Stars" type="Node2D" parent="." unique_id=1048954671]
-z_index = -1
-position = Vector2(-968, -216)
-
-[node name="Sprite2D" type="Sprite2D" parent="Stars" unique_id=1514364870]
-
-[node name="Rocks" type="Node2D" parent="." unique_id=259786048]
-position = Vector2(-968, -216)
-
-[node name="Sprite2D" type="Sprite2D" parent="Rocks" unique_id=380666574]
-
 [node name="Mission_Complete_Marker" type="Marker2D" parent="." unique_id=1140440958]
 position = Vector2(576, 587)
 
@@ -511,6 +500,7 @@ position = Vector2(576, 587)
 
 [node name="Victory_Label" type="Label" parent="Victory" unique_id=1141063826]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = 468.0
 offset_top = 184.0
