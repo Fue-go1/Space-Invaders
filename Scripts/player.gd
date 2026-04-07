@@ -38,7 +38,8 @@ func _process(delta: float) -> void:
 		max_per_shot += 1
 		%Cooldown.start()
 		
-	if Autoload.enemy_death_count == 1:
+	if Autoload.enemy_death_count == 8:
+		%Victory_Label.show()
 		%Lift_off.start()
 		var mission_complete = create_tween()
 		mission_complete.tween_property(%Player, "global_position", Vector2(530,587), 1)
@@ -62,3 +63,7 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	queue_free()
 	%Restart.show()
 	pass # Replace with function body.
+
+
+
+#Find out how to use await to trigger an animation using the Timer Nodes
