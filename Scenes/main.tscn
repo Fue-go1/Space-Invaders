@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bb75j5qrswi2k" path="res://Scripts/main.gd" id="1_21xkr"]
 [ext_resource type="PackedScene" uid="uid://cfylihfkfs3gp" path="res://Scenes/player.tscn" id="1_jjgbg"]
+[ext_resource type="PackedScene" uid="uid://cd5v6xx2ip06k" path="res://Scenes/mother_ship.tscn" id="2_hptm8"]
 [ext_resource type="Script" uid="uid://fy7r4jxtsqeb" path="res://Scripts/1_st_row.gd" id="2_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://boyts4wptgndq" path="res://Scenes/cover.tscn" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://bmnsshbidjbrv" path="res://Scenes/enemy.tscn" id="3_jjvhh"]
@@ -308,6 +309,7 @@ _data = {
 
 [node name="main" type="Node2D" unique_id=594243543]
 script = ExtResource("1_21xkr")
+mother_ship = ExtResource("2_hptm8")
 
 [node name="Player" parent="." unique_id=2134793376 instance=ExtResource("1_jjgbg")]
 unique_name_in_owner = true
@@ -316,6 +318,11 @@ scale = Vector2(2, 2)
 collision_mask = 129
 
 [node name="Timers" type="Node2D" parent="." unique_id=143317393]
+
+[node name="Spawn_Mother" type="Timer" parent="Timers" unique_id=926541768]
+unique_name_in_owner = true
+one_shot = true
+autostart = true
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1472894401]
 z_index = -1
@@ -512,6 +519,10 @@ text = "VICTORY"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Marker2D" type="Marker2D" parent="." unique_id=1036261233]
+position = Vector2(-37, 37)
+
+[connection signal="timeout" from="Timers/Spawn_Mother" to="." method="_on_spawn_mother_timeout"]
 [connection signal="victory" from="1st_Row/Enemy" to="1st_Row/Enemy" method="_on_victory"]
 [connection signal="area_entered" from="1st_Row/Enemy/Enraged_1" to="1st_Row/Enemy" method="_on_enraged_1_area_entered"]
 [connection signal="area_entered" from="2nd_Row/Enemy5/Friendly_Cone" to="2nd_Row/Enemy5" method="_on_friendly_cone_area_entered"]

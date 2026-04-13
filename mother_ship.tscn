@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://wh04wj2gw4e2"]
+
+[ext_resource type="Script" uid="uid://q17vnil5iiay" path="res://Scripts/mother_ship.gd" id="1_b5wcj"]
+[ext_resource type="Texture2D" uid="uid://dmn5h3x2gmh3h" path="res://Assets/Sprites/Enemy/Enemy1.png" id="2_c1qxc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c1qxc"]
+radius = 111.0045
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0k4re"]
+radius = 111.085556
+
+[node name="Mother_Ship" type="CharacterBody2D" unique_id=1325611949]
+script = ExtResource("1_b5wcj")
+speed = 500
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=23622872]
+modulate = Color(1, 0.07058824, 0, 1)
+scale = Vector2(4.5, 4.5)
+texture = ExtResource("2_c1qxc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1687004953]
+shape = SubResource("CircleShape2D_c1qxc")
+disabled = true
+
+[node name="Hit" type="Area2D" parent="." unique_id=1897154730]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hit" unique_id=1626715328]
+shape = SubResource("CircleShape2D_0k4re")

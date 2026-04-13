@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cd5v6xx2ip06k"]
+
+[ext_resource type="Texture2D" uid="uid://dmn5h3x2gmh3h" path="res://Assets/Sprites/Enemy/Enemy1.png" id="1_55bxm"]
+[ext_resource type="Script" path="res://Scripts/mother_ship.gd" id="1_shush"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_55bxm"]
+radius = 67.46851
+
+[node name="MotherShip" type="CharacterBody2D" unique_id=1273614361]
+script = ExtResource("1_shush")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1733985418]
+modulate = Color(1, 0, 0, 1)
+scale = Vector2(3, 3)
+texture = ExtResource("1_55bxm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1703252786]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_55bxm")
+
+[node name="Spawn_Timer" type="Timer" parent="." unique_id=1040767951]
