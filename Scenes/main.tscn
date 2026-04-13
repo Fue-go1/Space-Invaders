@@ -121,7 +121,7 @@ func _on_despawn_timer_timeout() -> void:
 "
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_344ge"]
-radius = 20.0
+radius = 16.0
 height = 44.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_21xkr"]
