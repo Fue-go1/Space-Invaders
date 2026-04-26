@@ -8,6 +8,9 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	var move = create_tween()
-	move.tween_property(self, "global_position", global_position + Vector2.RIGHT * speed, 3.5)
 	pass
+
+func _on_hit_area_entered(area: Area2D) -> void:
+	self.queue_free()
+	print("IM HITTT")
+	pass # Replace with function body.

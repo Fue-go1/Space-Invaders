@@ -307,9 +307,45 @@ _data = {
 &"mission_complete": SubResource("Animation_hptm8")
 }
 
+[sub_resource type="Animation" id="Animation_fdnlq"]
+resource_name = "Moving"
+length = 6.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../MotherShip:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-77, -20), Vector2(2274, -23)]
+}
+
+[sub_resource type="Animation" id="Animation_jkdf5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../MotherShip:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-77, 40)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wsu2k"]
+_data = {
+&"Moving": SubResource("Animation_fdnlq"),
+&"RESET": SubResource("Animation_jkdf5")
+}
+
 [node name="main" type="Node2D" unique_id=594243543]
 script = ExtResource("1_21xkr")
-mother_ship = ExtResource("2_hptm8")
 
 [node name="Player" parent="." unique_id=2134793376 instance=ExtResource("1_jjgbg")]
 unique_name_in_owner = true
@@ -321,8 +357,8 @@ collision_mask = 129
 
 [node name="Spawn_Mother" type="Timer" parent="Timers" unique_id=926541768]
 unique_name_in_owner = true
+wait_time = 2.0
 one_shot = true
-autostart = true
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1472894401]
 z_index = -1
@@ -492,6 +528,10 @@ speed_scale = 0.8
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_d1ilt")
 
+[node name="Mother_ship" type="AnimationPlayer" parent="Walls/Animations" unique_id=82368627]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_wsu2k")
+
 [node name="Restart" parent="." unique_id=2042745423 instance=ExtResource("7_6bp64")]
 unique_name_in_owner = true
 visible = false
@@ -520,7 +560,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=1036261233]
-position = Vector2(-37, 37)
+position = Vector2(-32, 37)
+
+[node name="MotherShip" parent="." unique_id=1273614361 instance=ExtResource("2_hptm8")]
+position = Vector2(-77, 40)
+scale = Vector2(0.8, 0.8)
 
 [connection signal="timeout" from="Timers/Spawn_Mother" to="." method="_on_spawn_mother_timeout"]
 [connection signal="victory" from="1st_Row/Enemy" to="1st_Row/Enemy" method="_on_victory"]
