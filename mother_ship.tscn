@@ -2,9 +2,58 @@
 
 [ext_resource type="Script" uid="uid://q17vnil5iiay" path="res://Scripts/mother_ship.gd" id="1_b5wcj"]
 [ext_resource type="Texture2D" uid="uid://dmn5h3x2gmh3h" path="res://Assets/Sprites/Enemy/Enemy1.png" id="2_c1qxc"]
+[ext_resource type="Texture2D" uid="uid://c8de78k86pj0m" path="res://Assets/Sprites/Enemy/EnemyDeath/EnemyExplodes1.png" id="2_jhkan"]
+[ext_resource type="Texture2D" uid="uid://c56hk6461weh5" path="res://Assets/Sprites/Enemy/EnemyDeath/EnemyExplodes2.png" id="3_x3tg4"]
+[ext_resource type="Texture2D" uid="uid://bfk5djeilpw7m" path="res://Assets/Sprites/Enemy/EnemyDeath/EnemyExplodes3.png" id="4_d4c10"]
+[ext_resource type="Texture2D" uid="uid://by0m5d3d4fa4p" path="res://Assets/Sprites/Enemy/EnemyDeath/EnemyExplodes4.png" id="5_62utu"]
+[ext_resource type="Texture2D" uid="uid://cp0yvajdr7edi" path="res://Assets/Sprites/Enemy/EnemyDeath/EnemyExplodes5.png" id="6_cjbtp"]
+[ext_resource type="Texture2D" uid="uid://dvmqcova05nw5" path="res://Assets/Sprites/Enemy/EnemyDeath/EnemyExplodes6.png" id="7_mq0nh"]
+[ext_resource type="Texture2D" uid="uid://txl0mrltspi" path="res://Assets/Sprites/Enemy/EnemyDeath/EnemyExplodes7.png" id="8_b673v"]
+[ext_resource type="Texture2D" uid="uid://qf56sbadu03n" path="res://Assets/Sprites/Enemy/EnemyDeath/EnemyExplodes8.png" id="9_kbyu8"]
+[ext_resource type="Texture2D" uid="uid://do14ew6glwy01" path="res://Assets/Sprites/Enemy/EnemyDeath/EnemyExplodes9.png" id="10_v30yv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0k4re"]
-radius = 81.09871
+radius = 97.18539
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c1qxc"]
+radius = 97.52948
+
+[sub_resource type="Animation" id="Animation_1uyep"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_c1qxc")]
+}
+
+[sub_resource type="Animation" id="Animation_2rr36"]
+resource_name = "destroyed"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.65, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_jhkan"), ExtResource("3_x3tg4"), ExtResource("4_d4c10"), ExtResource("5_62utu"), ExtResource("6_cjbtp"), ExtResource("7_mq0nh"), ExtResource("8_b673v"), ExtResource("9_kbyu8"), ExtResource("10_v30yv")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hcwq0"]
+_data = {
+&"RESET": SubResource("Animation_1uyep"),
+&"destroyed": SubResource("Animation_2rr36")
+}
 
 [node name="Mother_Ship" type="CharacterBody2D" unique_id=1325611949]
 script = ExtResource("1_b5wcj")
@@ -16,8 +65,16 @@ scale = Vector2(3.5, 3.5)
 texture = ExtResource("2_c1qxc")
 
 [node name="Hit" type="Area2D" parent="." unique_id=1897154730]
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hit" unique_id=1626715328]
 shape = SubResource("CircleShape2D_0k4re")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1256266305]
+shape = SubResource("CircleShape2D_c1qxc")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1694029334]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_hcwq0")
 
 [connection signal="area_entered" from="Hit" to="." method="_on_hit_area_entered"]

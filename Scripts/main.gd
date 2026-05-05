@@ -22,5 +22,4 @@ func mothership_despawn():
 	print("MotherSHIP despawned")
 
 func _on_spawn_mother_timeout() -> void:
-	
 	pass # Replace with function body.

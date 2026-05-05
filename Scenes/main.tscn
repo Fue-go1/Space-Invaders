@@ -23,7 +23,6 @@ script/source = "extends CharacterBody2D
 @onready var despawn_timer: Timer = $Despawn_timer
 @onready var enemy_cover: AnimationPlayer = $AnimationPlayer
 var active: bool = true
-signal victory
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -309,7 +308,7 @@ _data = {
 
 [sub_resource type="Animation" id="Animation_fdnlq"]
 resource_name = "Moving"
-length = 6.5
+length = 8.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -317,7 +316,7 @@ tracks/0/path = NodePath("../../MotherShip:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 6),
+"times": PackedFloat32Array(0, 7.7),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(-77, -20), Vector2(2274, -23)]
@@ -329,12 +328,24 @@ tracks/1/path = NodePath("../..")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(6.5),
+"times": PackedFloat32Array(7.9),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"mothership_despawn"
 }]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../MotherShip:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_jkdf5"]
@@ -351,11 +362,28 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(-77, 40)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../MotherShip:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_cbgmd"]
+resource_name = "destroyed"
+length = 0.6
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wsu2k"]
 _data = {
 &"Moving": SubResource("Animation_fdnlq"),
-&"RESET": SubResource("Animation_jkdf5")
+&"RESET": SubResource("Animation_jkdf5"),
+&"destroyed": SubResource("Animation_cbgmd")
 }
 
 [node name="main" type="Node2D" unique_id=594243543]
@@ -576,11 +604,12 @@ vertical_alignment = 1
 position = Vector2(-32, 37)
 
 [node name="MotherShip" parent="." unique_id=1273614361 instance=ExtResource("2_hptm8")]
+visible = false
 position = Vector2(-77, 40)
 scale = Vector2(0.8, 0.8)
+collision_layer = 2
 
 [connection signal="timeout" from="Timers/Spawn_Mother" to="." method="_on_spawn_mother_timeout"]
-[connection signal="victory" from="1st_Row/Enemy" to="1st_Row/Enemy" method="_on_victory"]
 [connection signal="area_entered" from="1st_Row/Enemy/Enraged_1" to="1st_Row/Enemy" method="_on_enraged_1_area_entered"]
 [connection signal="area_entered" from="2nd_Row/Enemy5/Friendly_Cone" to="2nd_Row/Enemy5" method="_on_friendly_cone_area_entered"]
 [connection signal="body_entered" from="2nd_Row/Enemy5/Friendly_Cone" to="2nd_Row/Enemy5" method="_on_friendly_cone_body_entered"]

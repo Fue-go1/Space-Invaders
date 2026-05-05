@@ -11,6 +11,9 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_hit_area_entered(area: Area2D) -> void:
+	#$AnimationPlayer.play("destroyed")
+	#await $AnimationPlayer.animation_finished
+	%AnimationPlayer.play("destroyed")
 	self.queue_free()
 	print("IM HITTT")
 	pass # Replace with function body.

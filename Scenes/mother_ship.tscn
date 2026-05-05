@@ -14,8 +14,17 @@ modulate = Color(1, 0, 0, 1)
 scale = Vector2(3, 3)
 texture = ExtResource("1_55bxm")
 
+[node name="Hit" type="Area2D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hit"]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_55bxm")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1703252786]
 position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_55bxm")
 
 [node name="Spawn_Timer" type="Timer" parent="." unique_id=1040767951]
+
+[connection signal="area_entered" from="Hit" to="." method="_on_hit_area_entered"]
