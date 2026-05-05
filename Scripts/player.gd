@@ -52,6 +52,7 @@ func _process(delta: float) -> void:
 		%Slow_down.play("slowdown")
 		await get_tree().create_timer(0.7).timeout
 		%Slow_down.play("normal")
+		%MotherShip.queue_free()
 	pass
 
 func _on_cooldown_timeout() -> void:

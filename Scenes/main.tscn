@@ -604,6 +604,7 @@ vertical_alignment = 1
 position = Vector2(-32, 37)
 
 [node name="MotherShip" parent="." unique_id=1273614361 instance=ExtResource("2_hptm8")]
+unique_name_in_owner = true
 visible = false
 position = Vector2(-77, 40)
 scale = Vector2(0.8, 0.8)

@@ -17,9 +17,5 @@ func _process(delta: float) -> void:
 	%Mother_ship.play("Moving")
 	pass
 
-func mothership_despawn():
-	$MotherShip.queue_free()
-	print("MotherSHIP despawned")
-
 func _on_spawn_mother_timeout() -> void:
 	pass # Replace with function body.
